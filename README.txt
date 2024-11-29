@@ -1,7 +1,7 @@
 # Invoice Payments System
 
 ## Overview
-This is a simple invoice management system implemented in Spring Boot. It supports:
+This is a simple Invoice Payments System implemented in Spring Boot. It supports:
 - Creating invoices
 - Paying invoices
 - Processing overdue invoices with late fees
