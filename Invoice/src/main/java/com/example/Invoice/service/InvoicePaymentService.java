@@ -1,6 +1,7 @@
 package com.example.Invoice.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,17 @@ public class InvoicePaymentService {
 	/*
 	 * processOverdue() 
 	 * method is responsible to check the payment and overdue
-	 * date/days
+	 * date/days and add the late fees.
 	 */
 	public void processOverdue(OverDueBean overDueBean) {
-		List<Invoice> overdueInvoices = invoiceRepository.findAll().stream()
-				.filter(invoice -> invoice.getStatus() == Invoice.Status.PENDING
-						&& invoice.getDueDate().isBefore(LocalDate.now().minusDays(overDueBean.getOverdueDays())))
-				.toList();
+		List<Invoice> allInvoices = invoiceRepository.findAll();
+		List<Invoice> overdueInvoices = new ArrayList<>();
+		LocalDate cutoffDate = LocalDate.now().minusDays(overDueBean.getOverdueDays());
+		for (Invoice invoice : allInvoices) {
+		    if (invoice.getStatus() == Invoice.Status.PENDING && invoice.getDueDate().isBefore(cutoffDate)) {
+		        overdueInvoices.add(invoice);
+		    }
+		}
 
 		for (Invoice invoice : overdueInvoices) {
 			if (invoice.getPaidAmount() > 0) {

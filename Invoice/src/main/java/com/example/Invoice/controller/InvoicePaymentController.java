@@ -43,13 +43,13 @@ public class InvoicePaymentController {
 	@PostMapping("/{id}/payments")
 	public ResponseEntity<?> payInvoice(@PathVariable Long id, @RequestBody PaymentsRequestBean payReqBean) {
 		invoicePayService.payInvoice(id, payReqBean.getAmount());
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok("Payment completed successfully.");
 	}
 
 	@PostMapping("/process-overdue")
 	public ResponseEntity<?> processOverdue(@RequestBody OverDueBean overDueBean) {
 		invoicePayService.processOverdue(overDueBean);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok("Overdue penalty has been added.!");
 	}
 
 }
