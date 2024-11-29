@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.Invoice.beans.OverDueBean;
 import com.example.Invoice.entity.Invoice;
 import com.example.Invoice.entity.Payments;
+import com.example.Invoice.exceptions.InvoiceExceptions;
 import com.example.Invoice.repositories.InvoiceRepository;
 import com.example.Invoice.repositories.PaymentsRepository;
 
@@ -49,7 +50,7 @@ public class InvoicePaymentService {
 	 */
 	public void payInvoice(Long invoiceId, Double paymentAmount) {
 		Invoice invoice = invoiceRepository.findById(invoiceId)
-				.orElseThrow(() -> new RuntimeException("Invoice not found"));
+				.orElseThrow(() -> new InvoiceExceptions("Invoice not found"));
 		double newPaidAmount = invoice.getPaidAmount() + paymentAmount;
 		invoice.setPaidAmount(newPaidAmount);
 
