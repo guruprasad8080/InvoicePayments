@@ -20,3 +20,6 @@ This is a simple Invoice Payments System implemented in Spring Boot. It supports
 
 ## Exception.
 - If the Invoice is not found for specific user then "Invoice not found" system will throw custom exception.
+
+##Database
+- Before connecting to Data base kindly create schema if local / Standalone deployment.
