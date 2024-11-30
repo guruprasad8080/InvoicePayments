@@ -18,6 +18,20 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
+To Create MySQL Docker Image:
+docker pull mysql
+
+To Run MySQL:
+docker run -p 3307:3306 --name mysqlcontainer -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=invoice_payment -d mysql
+
+
+
+To Create the MySQL network:
+docker network create networkmysql
+
+To Connect the MySQL network:
+docker network connect networkmysql mysqlcontainer
+
 To Create Project Image:
 docker build -t invoice_payment .
 
