@@ -24,8 +24,6 @@ docker pull mysql
 To Run MySQL:
 docker run -p 3307:3306 --name mysqlcontainer -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=invoice_payment -d mysql
 
-
-
 To Create the MySQL network:
 docker network create networkmysql
 
@@ -36,4 +34,4 @@ To Create Project Image:
 docker build -t invoice_payment .
 
 To Run the Spring Boot Application :
-docker run -p 8090:8080 --name invoice_payment --net networkmysql -e MYSQL_HOST=mysqlcontainer -e MYSQL_PORT=3307 -e MYSQL_DB_NAME=invoice_payment -e MYSQL_USER=root -e MYSQL_PASSWORD=root invoice_payment
+docker run -p 8090:8080 --name invoice_payment --net networkmysql -e MYSQL_HOST=mysqlcontainer -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=invoice_payment -e MYSQL_USER=root -e MYSQL_PASSWORD=root invoice_payment
