@@ -86,8 +86,10 @@ public class InvoicePaymentService {
 			if (invoice.getPaidAmount() > 0) {
 				double remainingAmount = invoice.getAmount() - invoice.getPaidAmount();
 				invoice.setStatus(Invoice.Status.PAID);
-				createInvoice(remainingAmount + overDueBean.getLateFee(),
+				Invoice newInvoice = createInvoice(remainingAmount + overDueBean.getLateFee(),
 						LocalDate.now().plusDays(overDueBean.getOverdueDays()));
+				newInvoice.setPaidAmount(invoice.getPaidAmount());
+				invoiceRepository.save(newInvoice);
 			} else {
 				invoice.setStatus(Invoice.Status.VOID);
 				createInvoice(invoice.getAmount() + overDueBean.getLateFee(),
